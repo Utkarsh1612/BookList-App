@@ -38,7 +38,8 @@ const AllBooks = () => {
     setBooks(updatedBooks)
   }
 
-  const booksData = JSON.parse(localStorage.getItem("books"));
+  const stored = localStorage.getItem("books");
+  const booksData = stored ? JSON.parse(stored) : [];
   const totalBooks = booksData.length;
   const readBooks = booksData.reduce((acc, curr) => {
     if(curr.status === "Read"){
