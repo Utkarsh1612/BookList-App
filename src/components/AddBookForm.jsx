@@ -1,4 +1,6 @@
-import {  useState } from "react";
+import {  useContext, useEffect, useState } from "react";
+import useBookState from "../customHooks/useBookState";
+import BookContext from "../contexts/BookContext";
 
 const AddBookForm = () => {
 
@@ -7,13 +9,16 @@ const AddBookForm = () => {
         book_name: "",
         author_name: "",
         image_url: "",
+        status: "",
     });
-    const [books, setBooks] = useState([]);
 
-    localStorage.setItem("books", JSON.stringify(books));
+    const {books, setBooks} = useContext(BookContext);
+
+    console.log("books:",books);
 
     const handleChange = (e) => {
         const {name, value} = e.target;
+        console.log(name, value);
         setFormData((prev) => ({...prev, [name]: value}));
     }
 
@@ -22,12 +27,14 @@ const AddBookForm = () => {
 
         const updatedBooks = [...books, formData];
         setBooks(updatedBooks);
+        localStorage.setItem("books", JSON.stringify(updatedBooks));
 
         setFormData({
             id: Date.now(),
             book_name: "",
             author_name: "",
             image_url: "",
+            status: "",
         });
     }
 
@@ -47,6 +54,14 @@ const AddBookForm = () => {
             <div className="py-3">
                 <label htmlFor="image_url">Book Image URL:</label>
                 <input onChange={(e) => handleChange(e)} id="image_url" name="image_url" type="text" className="form-control" value={formData.image_url} required/>
+            </div>
+
+            <div className="py-3">
+                <select onChange={(e) => handleChange(e)} className="form-control" value={formData.status} name="status" id="status">
+                    <option value="">Select Status</option>
+                    <option value="Read">Read</option>
+                    <option value="Unread">Unread</option> 
+                </select>
             </div>
 
             <div className="d-grid py-4">

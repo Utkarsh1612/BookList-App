@@ -6,6 +6,8 @@ import "bootstrap/dist/js/bootstrap.min.js";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import AllBooks from "./pages/AllBooks.jsx";
 import AddBook from "./pages/AddBook.jsx";
+import BookContext from "./contexts/BookContext.js";
+import useBookState from "./customHooks/useBookState.js";
 
 const router = createBrowserRouter([
   { path: "/", element: <App/> },
@@ -13,8 +15,19 @@ const router = createBrowserRouter([
   { path: "/addbook", element: <AddBook/> },
 ])
 
+const BookContextProvider = ({children}) => {
+  const {books, setBooks} = useBookState();
+   return (
+    <BookContext.Provider value={{books, setBooks}}>
+      {children}
+    </BookContext.Provider>
+   )
+}
+
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router}/>
+    <BookContextProvider>
+      <RouterProvider router={router}/>
+    </BookContextProvider>
   </StrictMode>
 );
