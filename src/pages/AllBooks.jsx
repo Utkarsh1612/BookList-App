@@ -61,7 +61,8 @@ const AllBooks = () => {
                 <div className="card-footer">
                   <h5>{book.book_name}</h5>
                   <p>by {book.author_name}</p>
-                  <button
+                  <div className="d-flex justify-content-between">
+                    <button
                     onClick={() => handleToggle(book.id)}
                     className="btn btn-success"
                   >
@@ -94,6 +95,7 @@ const AllBooks = () => {
                     </svg>{" "}
                     Delete
                   </button>
+                  </div>
                 </div>
               </div>
             </div>
