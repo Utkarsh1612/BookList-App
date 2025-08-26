@@ -42,7 +42,7 @@ const AllBooks = () => {
     <div className="bg-success">
       <Header />
 
-      <section className="container d-flex justify-content-end my-5">
+      <section className="container d-flex justify-content-end mt-5 mb-3">
           <button onClick={() => {filterBooks("All")}} className="btn btn-light">All Books</button>
           <button onClick={() => {filterBooks("Read")}} className="btn btn-light ms-4">Read Books</button>
           <button onClick={() => {filterBooks("Unread")}} className="btn btn-light ms-4">Unread Books</button>
