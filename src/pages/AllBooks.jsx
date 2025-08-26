@@ -24,9 +24,11 @@ const AllBooks = () => {
   };
 
   const handleDelete = (id) => {
+    const data = JSON.parse(localStorage.getItem("books"));
+    const updatedData = data.filter((book) => book.id != id);
     const updatedBooks = books.filter((book) => book.id != id);
     setBooks(updatedBooks);
-    localStorage.setItem("books", JSON.stringify(updatedBooks));
+    localStorage.setItem("books", JSON.stringify(updatedData));
   };
 
   const filterBooks = (filter) => {
@@ -40,13 +42,13 @@ const AllBooks = () => {
     <div className="bg-success">
       <Header />
 
-      <section className="container d-flex justify-content-end mt-3">
+      <section className="container d-flex justify-content-end my-5">
           <button onClick={() => {filterBooks("All")}} className="btn btn-light">All Books</button>
           <button onClick={() => {filterBooks("Read")}} className="btn btn-light ms-4">Read Books</button>
           <button onClick={() => {filterBooks("Unread")}} className="btn btn-light ms-4">Unread Books</button>
       </section>
 
-      <main style={{height: "100%"}} className="container bg-success">
+      <main style={{height: "100%"}} className="container bg-success  mb-5">
         <div className="row">
           {books.length === 0 ? <div style={{height: "500px"}} className="d-grid justify-content-center align-items-center text-white display-6">Empty List. No Book Found!</div> : books.map((book) => (
             <div className="col-md-3 mb-3" key={book.id}>
