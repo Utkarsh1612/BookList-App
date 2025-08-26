@@ -38,14 +38,29 @@ const AllBooks = () => {
     setBooks(updatedBooks)
   }
 
+  const booksData = JSON.parse(localStorage.getItem("books"));
+  const totalBooks = booksData.length;
+  const readBooks = booksData.reduce((acc, curr) => {
+    if(curr.status === "Read"){
+      return acc + 1;
+    }
+    return acc;
+  }, 0);
+  const unreadBooks = booksData.reduce((acc, curr) => {
+    if(curr.status === "Unread"){
+      return acc + 1;
+    }
+    return acc;
+  }, 0);
+
   return (
     <div className="bg-success">
       <Header />
 
       <section className="container d-flex justify-content-end mt-5 mb-3">
-          <button onClick={() => {filterBooks("All")}} className="btn btn-light">All Books</button>
-          <button onClick={() => {filterBooks("Read")}} className="btn btn-light ms-4">Read Books</button>
-          <button onClick={() => {filterBooks("Unread")}} className="btn btn-light ms-4">Unread Books</button>
+          <button onClick={() => {filterBooks("All")}} className="btn btn-light">All Books{`(${totalBooks})`}</button>
+          <button onClick={() => {filterBooks("Read")}} className="btn btn-light ms-4">Read Books{`(${readBooks})`}</button>
+          <button onClick={() => {filterBooks("Unread")}} className="btn btn-light ms-4">Unread Books{`(${unreadBooks})`}</button>
       </section>
 
       <main style={{height: "100%"}} className="container bg-success  mb-5">
