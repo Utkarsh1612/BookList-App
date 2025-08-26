@@ -8,13 +8,19 @@ const AllBooks = () => {
   console.log("books :", books);
 
   const handleToggle = (id) => {
-    const updateBooks = books.map((book) =>
+    const data = JSON.parse(localStorage.getItem("books"));
+    const updateData = data.map((book) =>
+      book.id === id
+        ? { ...book, status: book.status === "Read" ? "Unread" : "Read" }
+        : book
+    );
+   const updateBooks = books.map((book) =>
       book.id === id
         ? { ...book, status: book.status === "Read" ? "Unread" : "Read" }
         : book
     );
     setBooks(updateBooks);
-    localStorage.setItem("books", JSON.stringify(updateBooks));
+    localStorage.setItem("books", JSON.stringify(updateData));
   };
 
   const handleDelete = (id) => {
@@ -24,7 +30,8 @@ const AllBooks = () => {
   };
 
   const filterBooks = (filter) => {
-    const updatedBooks = filter === "All" ? books : books.filter((book) => book.status === filter);
+    const data = JSON.parse(localStorage.getItem("books"));
+    const updatedBooks = filter === "All" ? data : data.filter((book) => book.status === filter);
     console.log(updatedBooks);
     setBooks(updatedBooks)
   }
